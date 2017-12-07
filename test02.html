@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <title>전역, 지역 컴포넌트 차이점</title>
+  </head>
+  <body>
+    <div id="app">
+      <button>parent Component </button>
+      <my-component></my-component>
+      <my-local-component></my-local-component>
+      <!-- {{ message }} -->
+    </div>
+
+    <div id='app2'>
+      <my-component></my-component>
+      <my-local-component></my-local-component>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+    <script>
+
+      Vue.component('my-component', {
+          template:'<div> A Global component!</div>'
+      });
+
+      var cmp = {
+        template:'<div> A Local component!</div>'
+      }
+
+      new Vue ({
+        el:'#app',
+        components:{
+          'my-local-component':cmp
+        }
+      })
+
+      new Vue({
+        el:'#app2',
+        /**
+        아랫것을 지정해줘야 한다. 
+        */
+        components:{
+          'my-local-component':cmp
+        }
+      })
+
+      /*
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        },
+        beforeCreate: function (){
+            console.log("beforeCreate ")
+        },
+        created: function (){
+            console.log("create ")
+        },
+        mounted: function (){
+            console.log("mounted ")
+            this.message = '1';
+        },
+        updated: function (){
+            console.log("updated ")
+        },
+
+      })
+      */
+
+        /*
+      var MyComponent = Vue.extend({
+        template:'<p> Hello {{ message }}</p>',
+        data:{
+          message:'Vue'
+        }
+      })
+
+      var myComponentInstatnce = new MyComponent();
+      */
+</script>
+
+  </body>
+</html>
+
+  <!-- ctrl + shift + q  ==> open in browser-->
